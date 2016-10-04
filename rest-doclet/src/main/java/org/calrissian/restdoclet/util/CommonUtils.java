@@ -89,9 +89,11 @@ public class CommonUtils {
             path = path.replaceAll("//", "/");
         }
 
+        //remove trailing slash
         if (path.length() > 1 && path.endsWith("/"))
-            path = path.substring(0, path.length() - 2);
+            path = path.substring(0, path.length() - 1);
 
+        //append leading slash
         if (!path.startsWith("/"))
             path = "/" + path;
 

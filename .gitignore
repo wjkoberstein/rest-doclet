@@ -1,1 +1,6 @@
 target/
+
+examples/jaxrs-example/.settings/**
+**/*.project
+**/.settings/*
+**/.classpath

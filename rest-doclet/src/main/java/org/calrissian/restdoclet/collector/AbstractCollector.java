@@ -163,9 +163,11 @@ public abstract class AbstractCollector implements Collector {
      * @return
      */
     protected String getContextPath(ClassDoc classDoc) {
-        if(!isEmpty(classDoc.tags(CONTEXT_TAG)))
-            return classDoc.tags(CONTEXT_TAG)[0].text();
-
+        while ( classDoc!=null ) { ;
+	        if(!isEmpty(classDoc.tags(CONTEXT_TAG)))
+	            return classDoc.tags(CONTEXT_TAG)[0].text();
+	        classDoc = classDoc.superclass() ;
+        }
         return "";
     }
 
@@ -213,22 +215,37 @@ public abstract class AbstractCollector implements Collector {
         if (isEmpty(classMapping.getPaths())) {
 
             for (String path : methodMapping.getPaths())
-                paths.add(fixPath(contextPath + path));
+                paths.add(fixPath(appendPath(contextPath,path)));
 
         } else if (isEmpty(methodMapping.getPaths())) {
 
             for (String path : classMapping.getPaths())
-                paths.add(fixPath(contextPath + path));
+                paths.add(fixPath(appendPath(contextPath,path)));
 
         } else {
 
             for (String defaultPath : classMapping.getPaths())
                 for (String path : methodMapping.getPaths())
-                    paths.add(fixPath(contextPath + defaultPath + path));
+                    paths.add(fixPath(appendPath(contextPath,defaultPath,path)));
 
         }
 
         return paths;
+    }
+    
+    protected String appendPath(String... pathParts) {
+    	StringBuilder finalPath = new StringBuilder() ;
+    	for (String pathPart : pathParts) {
+    		finalPath.append(pathPart);
+    		finalPath.append("/") ;
+		}
+    	
+    	String path = finalPath.toString() ;
+        //remove trailing slash
+        if (path.length() > 1 && path.endsWith("/"))
+            path = path.substring(0, path.length() - 1);
+
+    	return path ;
     }
 
     /**
