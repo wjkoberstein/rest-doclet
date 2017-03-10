@@ -125,6 +125,16 @@ public class SpringCollector extends AbstractCollector {
         return retVal;
     }
 
+    
+    
+    protected Collection<QueryParam> getDefaultQueryParams(MethodDoc methodDoc) {
+    	Collection<QueryParam> defaultParams = new HashSet<QueryParam>();
+    	
+    	methodDoc.containingClass();
+    	
+		return defaultParams  ;
+    }
+    
     @Override
     protected Collection<QueryParam> generateQueryParams(MethodDoc methodDoc) {
         Collection<QueryParam> retVal = new ArrayList<QueryParam> ();

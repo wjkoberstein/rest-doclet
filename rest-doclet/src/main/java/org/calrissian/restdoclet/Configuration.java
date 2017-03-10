@@ -31,7 +31,12 @@ public class Configuration {
         //Swagger options
         API_VERSION("version", null),
         DISPLAY_ONLY("callable", "true"),
-        BASEPATH("path", "/");
+        BASEPATH("path", "/"),
+        
+        //Default API Options
+        API_ATTRIBUTES_FILE("apiattr",null)
+        
+        ;
 
         private String option;
         private String defaultValue;
