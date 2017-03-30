@@ -145,8 +145,8 @@ public abstract class AbstractCollector implements Collector {
                                 requestBody,
                                 consumes,
                                 produces,
-                                method.commentText(),
                                 firstSentence(method),
+                                method.commentText(),
                                 method.returnType()
                         )
                 );
